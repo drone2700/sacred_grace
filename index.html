@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>El Sabueso Sagrado</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -113,11 +113,45 @@
   .body-text{ font-size:clamp(8px,1.4vw,11px); line-height:1.9; color:var(--gold-light); margin-top:10px; text-shadow:1px 1px 0 #000; max-width:520px; }
   @keyframes pulse{ 0%,100%{opacity:0.4;} 50%{opacity:1;} }
   .credit{ position:absolute; bottom:6px; right:10px; font-size:6px; color:#5a4a38; }
+
+  /* --- mobil: ajuste de alto + controles tactiles --- */
+  html,body{ overscroll-behavior:none; }
+  #frame{ max-height:100vh; max-height:100svh; }
+  #game{ touch-action:none; }
+  .overlay{ touch-action:pan-y; }
+  #touchControls{ position:absolute; left:0; right:0; bottom:0; display:none;
+    justify-content:space-between; align-items:flex-end;
+    padding:12px 12px calc(12px + env(safe-area-inset-bottom)); pointer-events:none; z-index:6; }
+  body.has-touch #touchControls{ display:flex; }
+  .tc-side{ display:flex; gap:10px; align-items:flex-end; pointer-events:none; }
+  .tcbtn{ pointer-events:auto; touch-action:none; -webkit-user-select:none; user-select:none;
+    width:56px; height:56px; border-radius:50%; border:2px solid var(--gold);
+    background:rgba(26,18,38,0.5); color:var(--gold-light);
+    font-family:'Press Start 2P',monospace; font-size:16px; line-height:1;
+    display:flex; align-items:center; justify-content:center; box-shadow:0 0 10px rgba(0,0,0,0.5); }
+  .tcbtn:active{ background:rgba(122,31,44,0.85); border-color:#fff; color:#fff; }
+  .tcbtn-spin{ width:64px; height:64px; }
+  .tcbtn-jump{ width:72px; height:72px; font-size:22px; background:rgba(122,31,44,0.5); }
+  .touch-note{ display:none; }
+  body.has-touch .touch-note{ display:block; margin-top:10px; font-size:clamp(7px,1.2vw,9px); color:#9d8bb0; }
 </style>
 </head>
 <body>
   <div id="frame">
     <canvas id="game" width="480" height="270"></canvas>
+
+    <!-- CONTROLES TACTILES (mobil) -->
+    <div id="touchControls">
+      <div class="tc-side tc-left">
+        <button class="tcbtn" id="btnLeft" aria-label="Izquierda">◄</button>
+        <button class="tcbtn" id="btnRight" aria-label="Derecha">►</button>
+      </div>
+      <div class="tc-side tc-right">
+        <button class="tcbtn tcbtn-spin" id="btnSpin" aria-label="Giro">↻</button>
+        <button class="tcbtn" id="btnBark" aria-label="Ladrido">L</button>
+        <button class="tcbtn tcbtn-jump" id="btnJump" aria-label="Saltar">▲</button>
+      </div>
+    </div>
 
     <!-- INTRO -->
     <div id="intro" class="overlay">
@@ -129,6 +163,7 @@
         <b>J</b> / <b>K</b> &nbsp;&mdash;&nbsp; Giro (coletazo, golpea alrededor)<br>
         <b>L</b> &nbsp;&mdash;&nbsp; Ladrido Sagrado (onda purificadora)
       </div>
+      <div class="touch-note">En móvil: usa los botones en pantalla (mover, girar ↻, ladrido L, saltar ▲).</div>
       <div class="opt-label">DIFICULTAD</div>
       <div class="row" id="diffRow">
         <button class="pick" data-diff="0.8">PIEDAD</button>
