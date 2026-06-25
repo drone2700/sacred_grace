@@ -6,6 +6,7 @@ import { VW, VH, GROUND_Y, levels, RELIC_TIME, BARK_CD } from './config.js';
 import { drawEnemies } from './enemies.js';
 import { drawProjectiles } from './projectiles.js';
 import { drawRelics, drawBone } from './relics.js';
+import { drawHelpers } from './helpers.js';
 import { drawWaves } from './waves.js';
 import { drawParticles } from './particles.js';
 import { drawDog } from './player.js';
@@ -223,6 +224,7 @@ export function render(dt){
   drawCandles();
   if(G.state!=='intro') drawAltar();
   drawRelics();
+  drawHelpers();
   drawProjectiles();
   drawEnemies();
   if(G.state==='play'||G.state==='clear'||G.state==='dead') drawDog();

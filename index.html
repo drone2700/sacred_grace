@@ -148,6 +148,19 @@
   }
   /* respaldo de visibilidad si el navegador no reporta pointer:coarse */
   body.has-touch #touchControls{ display:flex; }
+
+  /* --- intro compacta en pantallas bajas (horizontal movil) --- */
+  @media (pointer:coarse){ .controls{ display:none; } }
+  @media (max-height:480px){
+    .overlay{ justify-content:flex-start; padding:10px 5%; }
+    .title{ font-size:clamp(20px,8vh,32px); }
+    .subtitle{ font-size:clamp(10px,3.4vh,15px); }
+    .opt-label{ margin:8px 0 4px; }
+    .row{ gap:6px; }
+    button.pick{ padding:6px 9px; }
+    button.go{ margin-top:10px; padding:9px 16px; }
+    .hint{ margin-top:6px; }
+  }
 </style>
 </head>
 <body>

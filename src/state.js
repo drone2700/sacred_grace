@@ -9,7 +9,7 @@ export const G = {
   LEVEL_W:5000,
 
   platforms:[], enemies:[], relics:[], projectiles:[],
-  particles:[], waves:[], candles:[], decor:[],
+  particles:[], waves:[], candles:[], decor:[], helpers:[],
 
   killed:0, total:0, altarX:0, clearTimer:0,
 

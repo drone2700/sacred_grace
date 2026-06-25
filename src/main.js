@@ -10,6 +10,7 @@ import { updateEnemies } from './enemies.js';
 import { updateProjectiles } from './projectiles.js';
 import { updateWaves } from './waves.js';
 import { updateRelics } from './relics.js';
+import { updateHelpers } from './helpers.js';
 import { updateParticles } from './particles.js';
 import { render } from './render.js';
 import './input.js';   // adjunta los listeners de teclado
@@ -26,6 +27,7 @@ function loop(now){
     updateProjectiles(dt);
     updateWaves(dt);
     updateRelics(dt);
+    updateHelpers(dt);
     updateParticles(dt);
     G.projectiles = G.projectiles.filter(p=>!p.dead);
     if(G.total>0 && G.killed>=G.total) triggerClear();

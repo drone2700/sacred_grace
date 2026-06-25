@@ -12,7 +12,7 @@ export function buildLevel(idx){
   G.levelIndex = idx;
   G.LEVEL_W = 5000;
   G.platforms=[]; G.enemies=[]; G.relics=[]; G.projectiles=[];
-  G.particles=[]; G.waves=[]; G.candles=[]; G.decor=[];
+  G.particles=[]; G.waves=[]; G.candles=[]; G.decor=[]; G.helpers=[];
   G.killed=0;
 
   // suelo continuo (sin pozos mortales)
@@ -38,6 +38,12 @@ export function buildLevel(idx){
   // reliquias doradas
   [820, 2050, 3300, 4250].forEach((rx,i)=>{
     G.relics.push({ x:rx, y:GROUND_Y-66, base:GROUND_Y-66, w:14, h:14, got:false, phase:i*1.7 });
+  });
+
+  // ayudantes (2a mitad del nivel): al pasar te dan el Huesito de Poder
+  G.helpers = [];
+  [[G.LEVEL_W*0.55,'ranger',22,34],[G.LEVEL_W*0.80,'spider',20,30]].forEach(([hx,kind,hw,hh],i)=>{
+    G.helpers.push({ x: Math.round(hx + rand(-120,120)), y: GROUND_Y-hh, w:hw, h:hh, freed:false, t:0, phase:i*2.1, kind });
   });
 
   G.total = G.enemies.length;
