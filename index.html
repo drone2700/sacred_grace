@@ -17,7 +17,7 @@
   body{
     background:radial-gradient(ellipse at top, #160f24 0%, #06040b 70%);
     display:flex; align-items:center; justify-content:center;
-    min-height:100vh;
+    min-height:100svh;
     font-family:'Press Start 2P', monospace;
     color:var(--gold-light);
     overflow:hidden;
@@ -116,7 +116,8 @@
 
   /* --- mobil: ajuste de alto + controles tactiles --- */
   html,body{ overscroll-behavior:none; }
-  #frame{ max-height:100vh; max-height:100svh; }
+  #frame{ width:min(100%, calc(100svh * 16 / 9)); max-width:960px; max-height:100svh; }
+  @media (pointer: coarse){ #touchControls{ display:flex; } }
   #game{ touch-action:none; }
   .overlay{ touch-action:pan-y; }
   #touchControls{ position:absolute; left:0; right:0; bottom:0; display:none;

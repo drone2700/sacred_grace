@@ -28,3 +28,25 @@ window.addEventListener('keyup', e=>{
     if(player.vy<0 && !player.jumpCut){ player.vy*=0.45; player.jumpCut=true; }  // salto variable
   }
 });
+
+// --- controles tactiles (mobil) --- touchControls-wiring
+function _bindHold(id,on,off){
+  const el=document.getElementById(id); if(!el) return;
+  el.addEventListener('contextmenu',e=>e.preventDefault());
+  el.addEventListener('pointerdown',e=>{ e.preventDefault(); try{el.setPointerCapture(e.pointerId);}catch(_){} initAudio(); on(); });
+  const end=e=>{ e.preventDefault(); off(); };
+  el.addEventListener('pointerup',end); el.addEventListener('pointercancel',end); el.addEventListener('pointerleave',end);
+}
+function _bindTap(id,fn){
+  const el=document.getElementById(id); if(!el) return;
+  el.addEventListener('contextmenu',e=>e.preventDefault());
+  el.addEventListener('pointerdown',e=>{ e.preventDefault(); initAudio(); fn(); });
+}
+_bindHold('btnLeft',  ()=>input.left=true,  ()=>input.left=false);
+_bindHold('btnRight', ()=>input.right=true, ()=>input.right=false);
+_bindHold('btnJump',
+  ()=>{ if(!input.jump){ player.jumpBuffer=JBUF; } input.jump=true; },
+  ()=>{ input.jump=false; if(player.vy<0 && !player.jumpCut){ player.vy*=0.45; player.jumpCut=true; } });
+_bindTap('btnSpin', trySpin);
+_bindTap('btnBark', tryBark);
+if(('ontouchstart' in window) || (navigator.maxTouchPoints>0)){ document.body.classList.add('has-touch'); }
